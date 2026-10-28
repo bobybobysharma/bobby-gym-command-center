@@ -113,3 +113,21 @@ describe("Check-in log filters", () => {
     expect(summariseAttendance(rows, base)).toEqual({ visits: 2, members: 2, qr: 1, manual: 1 });
   });
 });
+
+describe("manual check-in replies from record_manual_check_in", () => {
+  it("shows the database's duplicate refusal, never a success", () => {
+    const out = parseCheckInResult({ success: false, reason: "duplicate", message: "Asha Rao already checked in 12 minutes ago." });
+    expect(out.ok).toBe(false);
+    if (!out.ok) {
+      expect(out.reason).toBe("duplicate");
+      expect(out.message).toContain("12 minutes ago");
+    }
+  });
+  it("accepts a valid check-in after the 60-minute window", () => {
+    const out = parseCheckInResult({ success: true, message: "Checked in Asha Rao.", member: { id: "m1", name: "Asha Rao", code: "M00001" }, checked_in_at: "2026-10-28T10:00:00Z" });
+    expect(out.ok).toBe(true);
+  });
+  it("treats an empty reply (e.g. unauthorised error) as a failure", () => {
+    expect(parseCheckInResult(null).ok).toBe(false);
+  });
+});
