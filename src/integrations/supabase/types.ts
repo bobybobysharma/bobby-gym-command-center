@@ -947,6 +947,10 @@ export type Database = {
           role: Database["public"]["Enums"]["app_role"]
         }[]
       }
+      record_manual_check_in: {
+        Args: { _gym: string; _member: string; _notes?: string }
+        Returns: Json
+      }
       record_qr_check_in: {
         Args: { _gym: string; _qr_token: string }
         Returns: Json
