@@ -10,33 +10,253 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as MemberRouteImport } from './routes/member'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminSectionRouteImport } from './routes/admin.$section'
+import { Route as AdminAttendanceRouteImport } from './routes/admin.attendance'
+import { Route as AdminEnquiriesRouteImport } from './routes/admin.enquiries'
+import { Route as AdminMembersRouteImport } from './routes/admin.members'
+import { Route as AdminMembershipsRouteImport } from './routes/admin.memberships'
+import { Route as MemberIndexRouteImport } from './routes/member.index'
+import { Route as MemberAttendanceRouteImport } from './routes/member.attendance'
+import { Route as MemberCheckInRouteImport } from './routes/member.check-in'
+import { Route as MemberDashboardRouteImport } from './routes/member.dashboard'
+import { Route as MemberMembershipRouteImport } from './routes/member.membership'
+import { Route as MemberPaymentsRouteImport } from './routes/member.payments'
+import { Route as MemberProfileRouteImport } from './routes/member.profile'
+import { Route as MemberLoginRouteImport } from './routes/member_.login'
+import { Route as AdminMembersMemberIdRouteImport } from './routes/admin.members_.$memberId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MemberRoute = MemberRouteImport.update({
+  id: '/member',
+  path: '/member',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSectionRoute = AdminSectionRouteImport.update({
+  id: '/$section',
+  path: '/$section',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAttendanceRoute = AdminAttendanceRouteImport.update({
+  id: '/attendance',
+  path: '/attendance',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEnquiriesRoute = AdminEnquiriesRouteImport.update({
+  id: '/enquiries',
+  path: '/enquiries',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMembersRoute = AdminMembersRouteImport.update({
+  id: '/members',
+  path: '/members',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMembershipsRoute = AdminMembershipsRouteImport.update({
+  id: '/memberships',
+  path: '/memberships',
+  getParentRoute: () => AdminRoute,
+} as any)
+const MemberIndexRoute = MemberIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberAttendanceRoute = MemberAttendanceRouteImport.update({
+  id: '/attendance',
+  path: '/attendance',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberCheckInRoute = MemberCheckInRouteImport.update({
+  id: '/check-in',
+  path: '/check-in',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberDashboardRoute = MemberDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberMembershipRoute = MemberMembershipRouteImport.update({
+  id: '/membership',
+  path: '/membership',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberPaymentsRoute = MemberPaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberProfileRoute = MemberProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberLoginRoute = MemberLoginRouteImport.update({
+  id: '/member_/login',
+  path: '/member/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminMembersMemberIdRoute = AdminMembersMemberIdRouteImport.update({
+  id: '/members_/$memberId',
+  path: '/members/$memberId',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/login': typeof LoginRoute
+  '/member': typeof MemberRouteWithChildren
+  '/admin/$section': typeof AdminSectionRoute
+  '/admin/attendance': typeof AdminAttendanceRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
+  '/admin/members': typeof AdminMembersRoute
+  '/admin/memberships': typeof AdminMembershipsRoute
+  '/member/attendance': typeof MemberAttendanceRoute
+  '/member/check-in': typeof MemberCheckInRoute
+  '/member/dashboard': typeof MemberDashboardRoute
+  '/member/membership': typeof MemberMembershipRoute
+  '/member/payments': typeof MemberPaymentsRoute
+  '/member/profile': typeof MemberProfileRoute
+  '/member/login': typeof MemberLoginRoute
+  '/admin/': typeof AdminIndexRoute
+  '/member/': typeof MemberIndexRoute
+  '/admin/members/$memberId': typeof AdminMembersMemberIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/admin/$section': typeof AdminSectionRoute
+  '/admin/attendance': typeof AdminAttendanceRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
+  '/admin/members': typeof AdminMembersRoute
+  '/admin/memberships': typeof AdminMembershipsRoute
+  '/member/attendance': typeof MemberAttendanceRoute
+  '/member/check-in': typeof MemberCheckInRoute
+  '/member/dashboard': typeof MemberDashboardRoute
+  '/member/membership': typeof MemberMembershipRoute
+  '/member/payments': typeof MemberPaymentsRoute
+  '/member/profile': typeof MemberProfileRoute
+  '/member/login': typeof MemberLoginRoute
+  '/admin': typeof AdminIndexRoute
+  '/member': typeof MemberIndexRoute
+  '/admin/members/$memberId': typeof AdminMembersMemberIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/login': typeof LoginRoute
+  '/member': typeof MemberRouteWithChildren
+  '/admin/$section': typeof AdminSectionRoute
+  '/admin/attendance': typeof AdminAttendanceRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
+  '/admin/members': typeof AdminMembersRoute
+  '/admin/memberships': typeof AdminMembershipsRoute
+  '/member/attendance': typeof MemberAttendanceRoute
+  '/member/check-in': typeof MemberCheckInRoute
+  '/member/dashboard': typeof MemberDashboardRoute
+  '/member/membership': typeof MemberMembershipRoute
+  '/member/payments': typeof MemberPaymentsRoute
+  '/member/profile': typeof MemberProfileRoute
+  '/member_/login': typeof MemberLoginRoute
+  '/admin/': typeof AdminIndexRoute
+  '/member/': typeof MemberIndexRoute
+  '/admin/members_/$memberId': typeof AdminMembersMemberIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/login'
+    | '/member'
+    | '/admin/$section'
+    | '/admin/attendance'
+    | '/admin/enquiries'
+    | '/admin/members'
+    | '/admin/memberships'
+    | '/member/attendance'
+    | '/member/check-in'
+    | '/member/dashboard'
+    | '/member/membership'
+    | '/member/payments'
+    | '/member/profile'
+    | '/member/login'
+    | '/admin/'
+    | '/member/'
+    | '/admin/members/$memberId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/admin/$section'
+    | '/admin/attendance'
+    | '/admin/enquiries'
+    | '/admin/members'
+    | '/admin/memberships'
+    | '/member/attendance'
+    | '/member/check-in'
+    | '/member/dashboard'
+    | '/member/membership'
+    | '/member/payments'
+    | '/member/profile'
+    | '/member/login'
+    | '/admin'
+    | '/member'
+    | '/admin/members/$memberId'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/login'
+    | '/member'
+    | '/admin/$section'
+    | '/admin/attendance'
+    | '/admin/enquiries'
+    | '/admin/members'
+    | '/admin/memberships'
+    | '/member/attendance'
+    | '/member/check-in'
+    | '/member/dashboard'
+    | '/member/membership'
+    | '/member/payments'
+    | '/member/profile'
+    | '/member_/login'
+    | '/admin/'
+    | '/member/'
+    | '/admin/members_/$memberId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  MemberRoute: typeof MemberRouteWithChildren
+  MemberLoginRoute: typeof MemberLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +268,186 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/member': {
+      id: '/member'
+      path: '/member'
+      fullPath: '/member'
+      preLoaderRoute: typeof MemberRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/$section': {
+      id: '/admin/$section'
+      path: '/$section'
+      fullPath: '/admin/$section'
+      preLoaderRoute: typeof AdminSectionRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/attendance': {
+      id: '/admin/attendance'
+      path: '/attendance'
+      fullPath: '/admin/attendance'
+      preLoaderRoute: typeof AdminAttendanceRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/enquiries': {
+      id: '/admin/enquiries'
+      path: '/enquiries'
+      fullPath: '/admin/enquiries'
+      preLoaderRoute: typeof AdminEnquiriesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/members': {
+      id: '/admin/members'
+      path: '/members'
+      fullPath: '/admin/members'
+      preLoaderRoute: typeof AdminMembersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/memberships': {
+      id: '/admin/memberships'
+      path: '/memberships'
+      fullPath: '/admin/memberships'
+      preLoaderRoute: typeof AdminMembershipsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/member/': {
+      id: '/member/'
+      path: '/'
+      fullPath: '/member/'
+      preLoaderRoute: typeof MemberIndexRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/attendance': {
+      id: '/member/attendance'
+      path: '/attendance'
+      fullPath: '/member/attendance'
+      preLoaderRoute: typeof MemberAttendanceRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/check-in': {
+      id: '/member/check-in'
+      path: '/check-in'
+      fullPath: '/member/check-in'
+      preLoaderRoute: typeof MemberCheckInRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/dashboard': {
+      id: '/member/dashboard'
+      path: '/dashboard'
+      fullPath: '/member/dashboard'
+      preLoaderRoute: typeof MemberDashboardRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/membership': {
+      id: '/member/membership'
+      path: '/membership'
+      fullPath: '/member/membership'
+      preLoaderRoute: typeof MemberMembershipRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/payments': {
+      id: '/member/payments'
+      path: '/payments'
+      fullPath: '/member/payments'
+      preLoaderRoute: typeof MemberPaymentsRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/profile': {
+      id: '/member/profile'
+      path: '/profile'
+      fullPath: '/member/profile'
+      preLoaderRoute: typeof MemberProfileRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member_/login': {
+      id: '/member_/login'
+      path: '/member/login'
+      fullPath: '/member/login'
+      preLoaderRoute: typeof MemberLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/members_/$memberId': {
+      id: '/admin/members_/$memberId'
+      path: '/members/$memberId'
+      fullPath: '/admin/members/$memberId'
+      preLoaderRoute: typeof AdminMembersMemberIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminSectionRoute: typeof AdminSectionRoute
+  AdminAttendanceRoute: typeof AdminAttendanceRoute
+  AdminEnquiriesRoute: typeof AdminEnquiriesRoute
+  AdminMembersRoute: typeof AdminMembersRoute
+  AdminMembershipsRoute: typeof AdminMembershipsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminMembersMemberIdRoute: typeof AdminMembersMemberIdRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminSectionRoute: AdminSectionRoute,
+  AdminAttendanceRoute: AdminAttendanceRoute,
+  AdminEnquiriesRoute: AdminEnquiriesRoute,
+  AdminMembersRoute: AdminMembersRoute,
+  AdminMembershipsRoute: AdminMembershipsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminMembersMemberIdRoute: AdminMembersMemberIdRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface MemberRouteChildren {
+  MemberAttendanceRoute: typeof MemberAttendanceRoute
+  MemberCheckInRoute: typeof MemberCheckInRoute
+  MemberDashboardRoute: typeof MemberDashboardRoute
+  MemberMembershipRoute: typeof MemberMembershipRoute
+  MemberPaymentsRoute: typeof MemberPaymentsRoute
+  MemberProfileRoute: typeof MemberProfileRoute
+  MemberIndexRoute: typeof MemberIndexRoute
+}
+
+const MemberRouteChildren: MemberRouteChildren = {
+  MemberAttendanceRoute: MemberAttendanceRoute,
+  MemberCheckInRoute: MemberCheckInRoute,
+  MemberDashboardRoute: MemberDashboardRoute,
+  MemberMembershipRoute: MemberMembershipRoute,
+  MemberPaymentsRoute: MemberPaymentsRoute,
+  MemberProfileRoute: MemberProfileRoute,
+  MemberIndexRoute: MemberIndexRoute,
+}
+
+const MemberRouteWithChildren =
+  MemberRoute._addFileChildren(MemberRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  LoginRoute: LoginRoute,
+  MemberRoute: MemberRouteWithChildren,
+  MemberLoginRoute: MemberLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

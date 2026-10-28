@@ -14,4 +14,13 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+
+  it("serves the attendance page at /admin/attendance", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+
+    const matches = router.matchRoutes("/admin/attendance");
+
+    expect(matches.some((m) => m.routeId === "/admin/attendance")).toBe(true);
+  });
 });
+
