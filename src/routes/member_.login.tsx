@@ -34,7 +34,10 @@ const UNLINKED = "This email isn't linked to a membership yet. Ask reception to 
 
 function MemberLogin() {
   const navigate = useNavigate();
-  const { unlinked } = Route.useSearch();
+  const { unlinked, next, t } = Route.useSearch();
+  const goHome = () => next === "check-in"
+    ? navigate({ to: "/member/check-in", search: t ? { t } : {}, replace: true })
+    : navigate({ to: "/member/dashboard", replace: true });
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,8 +46,8 @@ function MemberLogin() {
 
   useEffect(() => {
     if (unlinked) return;
-    resolveMemberAccess().then((m) => { if (m && m !== "unlinked") navigate({ to: "/member/dashboard", replace: true }); }).catch(() => {});
-  }, [unlinked, navigate]);
+    resolveMemberAccess().then((m) => { if (m && m !== "unlinked") goHome(); }).catch(() => {});
+  }, [unlinked, navigate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -62,7 +65,7 @@ function MemberLogin() {
       const { error } = await supabase.auth.signInWithPassword(p.data);
       if (error) { setMsg({ kind: "error", text: error.message === "Invalid login credentials" ? "Incorrect email or password." : error.message }); return; }
       const m = await resolveMemberAccess();
-      if (m && m !== "unlinked") navigate({ to: "/member/dashboard", replace: true });
+      if (m && m !== "unlinked") goHome();
       else { await supabase.auth.signOut(); setMsg({ kind: "error", text: UNLINKED }); }
     } catch {
       setMsg({ kind: "error", text: "Could not reach the gym. Check your connection and try again." });
