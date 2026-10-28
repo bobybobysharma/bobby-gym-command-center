@@ -13,3 +13,4 @@
 - Dashboard access is resolved client-side in src/lib/admin-access.ts from the user's own user_roles rows confirmed by can_manage_gym(); RLS remains the real data guard.
 - Attendance rules (staff-only check-in, active pass, active member, 60-minute duplicate window) live in the Postgres function record_qr_check_in(); the frontend only translates its reply, so a QR scan and any future kiosk enforce one rule and cannot drift.
 
+- All attendance writes go through SECURITY DEFINER RPCs (record_qr_check_in, record_manual_check_in, member_check_in) that share one per-member advisory lock and the 60-minute rule; attendance_logs has no INSERT policy, so no path can bypass the rule.
