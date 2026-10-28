@@ -7,8 +7,11 @@ import { resolveMemberAccess } from "@/lib/member-access";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/member_/login")({
-  validateSearch: (s: Record<string, unknown>): { unlinked?: number } =>
-    s["unlinked"] === 1 || s["unlinked"] === "1" ? { unlinked: 1 } : {},
+  validateSearch: (s: Record<string, unknown>): { unlinked?: number; next?: "check-in"; t?: string } => ({
+    ...(s["unlinked"] === 1 || s["unlinked"] === "1" ? { unlinked: 1 } : {}),
+    ...(s["next"] === "check-in" ? { next: "check-in" as const } : {}),
+    ...(typeof s["t"] === "string" && /^[a-f0-9]{32,128}$/i.test(s["t"]) ? { t: s["t"] } : {}),
+  }),
   head: () => ({
     meta: [
       { title: "Member login — Bobby Gym" },
