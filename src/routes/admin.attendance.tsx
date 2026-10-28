@@ -114,26 +114,22 @@ function AttendancePage() {
   const manual = useMutation({
     mutationFn: async () => {
       if (!member) return { ok: false as const, reason: "unknown" as const, message: "Choose a member to check in." };
+      // Early hint only; the database (record_manual_check_in) enforces the 60-minute rule atomically.
       const warning = duplicateCheckInNotice(lastByMember.get(member) ?? null);
       if (warning) return { ok: false as const, reason: "duplicate" as const, message: warning };
-      const { error } = await supabase.from("attendance_logs").insert({
-        gym_id: gym,
-        member_id: member,
-        check_in_method: "manual",
-        checked_in_by: access.userId,
-        notes: note.trim() || null,
-      });
+      const { data, error } = await supabase.rpc("record_manual_check_in" as never, {
+        _gym: gym, _member: member, _notes: note.trim() || null,
+      } as never);
       if (error) {
         return {
           ok: false as const,
           reason: "unknown" as const,
-          message: /row-level security|permission/i.test(error.message)
+          message: /not authorised|permission/i.test(error.message)
             ? "You don't have permission to record attendance."
             : "Check-in could not be recorded. Please try again.",
         };
       }
-      const who = q.data?.members.find((m) => m.id === member);
-      return { ok: true as const, message: `Checked in ${who?.full_name ?? "member"}.`, memberId: member, at: new Date().toISOString() };
+      return parseCheckInResult(data);
     },
     onMutate: () => setResult(null),
     onSuccess: (outcome) => {
