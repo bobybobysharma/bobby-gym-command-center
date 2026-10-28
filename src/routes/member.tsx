@@ -6,10 +6,15 @@ import { resolveMemberAccess } from "@/lib/member-access";
 
 export const Route = createFileRoute("/member")({
   ssr: false,
-  beforeLoad: async () => {
+  beforeLoad: async ({ location }) => {
     const m = await resolveMemberAccess();
-    if (!m) throw redirect({ to: "/member/login" });
-    if (m === "unlinked") throw redirect({ to: "/member/login", search: { unlinked: 1 } });
+    // Keep a scanned reception QR so the member lands back on check-in after signing in.
+    const t = location.pathname === "/member/check-in" ? (location.search as { t?: unknown }).t : undefined;
+    const back = location.pathname === "/member/check-in"
+      ? { next: "check-in" as const, ...(typeof t === "string" ? { t } : {}) }
+      : {};
+    if (!m) throw redirect({ to: "/member/login", search: back });
+    if (m === "unlinked") throw redirect({ to: "/member/login", search: { unlinked: 1, ...back } });
     return { member: m };
   },
   head: () => ({
